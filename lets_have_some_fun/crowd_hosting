@@ -1,38 +1,38 @@
 def paginate(resultsPerPage, results):
-post_by_host, i, duplicates, res, curr = {}, 0, [], [], set()
-while results or duplicates:                
-    d=[]
-    while duplicates and i<5:
-        tmp = heapq.heappop(duplicates)
-        host_id = tmp[1][0].split(",")[0]
-        curr.add(host_id)
-        res.append(tmp[1].popleft())
-        if tmp[1]:
-            d.append(tmp)
-        else:
-            del post_by_host[host_id]
-        i+=1
-    for x in d:
-        heapq.heappush(duplicates, x)
-    while results and i<5:
-        r = results.pop(0)
-        host_id, list_id, score, address = r.split(",")
-        if host_id not in curr:
-            i+=1
-            res.append(r)
+    post_by_host, i, duplicates, res, curr = {}, 0, [], [], set()
+    while results or duplicates:                
+        d=[]
+        while duplicates and i<5:
+            tmp = heapq.heappop(duplicates)
+            host_id = tmp[1][0].split(",")[0]
             curr.add(host_id)
-        else:
-            if host_id in post_by_host:
-                post_by_host[host_id].append(r)
+            res.append(tmp[1].popleft())
+            if tmp[1]:
+                d.append(tmp)
             else:
-                post_by_host[host_id]=deque()
-                post_by_host[host_id].append(r)
-                heapq.heappush(duplicates, (-float(score), post_by_host[host_id]))
-    if i==5:
-        i=0
-        res.append("")
-    curr=set()
-return res
+                del post_by_host[host_id]
+            i+=1
+        for x in d:
+            heapq.heappush(duplicates, x)
+        while results and i<5:
+            r = results.pop(0)
+            host_id, list_id, score, address = r.split(",")
+            if host_id not in curr:
+                i+=1
+                res.append(r)
+                curr.add(host_id)
+            else:
+                if host_id in post_by_host:
+                    post_by_host[host_id].append(r)
+                else:
+                    post_by_host[host_id]=deque()
+                    post_by_host[host_id].append(r)
+                    heapq.heappush(duplicates, (-float(score), post_by_host[host_id]))
+        if i==5:
+            i=0
+            res.append("")
+        curr=set()
+    return res
 
 resultsPerPage = 5
 results = [
