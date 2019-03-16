@@ -2,7 +2,40 @@
 You are given a list of strings representing player_id, game_id, scores and city and a resultsPerPage number.
 The results are sorted by scores in descendnig order. 
 You need to display them so that on each page there are no duplicate player_id unless a page cannot be filled with only unique
-player ids. Then the page is padded with remaining entries while preserving the score order.
+player ids. Then the page is padded with remaining entries while preserving the score order. '' reprents end of page.
+Example input:
+resultsPerPage = 5
+results = [
+"1,28,300.6,San Francisco",
+"4,5,209.1,San Francisco",
+"20,7,203.4,Oakland",
+"6,8,202.9,San Francisco",
+"6,10,199.8,San Francisco",
+"1,16,190.5,San Francisco",
+"6,29,185.3,San Francisco",
+"7,20,180.0,Oakland",
+"6,21,162.2,San Francisco",
+"2,18,161.7,San Jose",
+"2,30,149.8,San Jose",
+"3,76,146.7,San Francisco",
+"2,14,141.8,San Jose"]
+
+Example output:
+['1,28,300.6,San Francisco', 
+ '4,5,209.1,San Francisco', 
+ '20,7,203.4,Oakland', 
+ '6,8,202.9,San Francisco', 
+ '7,20,180.0,Oakland', 
+ '', 
+ '6,10,199.8,San Francisco', 
+ '1,16,190.5,San Francisco', 
+ '2,18,161.7,San Jose', 
+ '3,76,146.7,San Francisco', 
+ '6,29,185.3,San Francisco', 
+ '', 
+ '6,21,162.2,San Francisco', 
+ '2,30,149.8,San Jose', 
+ '2,14,141.8,San Jose']
 '''
 def paginate(resultsPerPage, results):
     post_by_host, i, duplicates, res, curr = {}, 0, [], [], set()
