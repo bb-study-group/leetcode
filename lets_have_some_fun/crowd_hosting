@@ -1,3 +1,9 @@
+'''
+You are given a list of strings representing player_id, game_id, scores and city and a resultsPerPage number.
+The results are sorted by scores in descendnig order. 
+You need to display them so that on each page there are no duplicate player_id unless a page cannot be filled with only unique
+player ids. Then the page is padded with remaining entries while preserving the score order.
+'''
 def paginate(resultsPerPage, results):
     post_by_host, i, duplicates, res, curr = {}, 0, [], [], set()
     while results or duplicates:                
